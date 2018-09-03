@@ -13,7 +13,7 @@ fmt.println("")
 ```
 
 ## Usage
-### input a bufio by
+### input a bufio by tablego
 
 ## Change logs
 * 0.0.1
