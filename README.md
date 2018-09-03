@@ -13,7 +13,7 @@ fmt.println("")
 ```
 
 ## Usage
-### input a bufio
+### input a bufio by
 
 ## Change logs
 * 0.0.1
