@@ -9,7 +9,11 @@ No.
 
 And you need to require css and js of sort_table when you use it in browser.
 ```golang
-fmt.println("")
+fr, err := os.Open("test.tsv")
+tabO := tablego.Input(fr)
+for dA := range tabO.Iter() {
+	fmt.Println(dA)
+}
 ```
 
 ## Usage
