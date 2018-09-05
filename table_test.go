@@ -18,7 +18,7 @@ func TestTsvParse(t *testing.T) {
 		}
 		lineC++
 	}
-	if tabO.colnames == nil {
+	if tabO.Colnames == nil {
 		t.Error("Should have colnames!")
 	}
 }

@@ -8,10 +8,10 @@ import (
 
 // Scanner - scan function center
 type Scanner struct {
-	bufio    bufio.Scanner
-	spliter  string
-	maxLine  int
-	colnames []string
+	Bufio    bufio.Scanner
+	Spliter  string
+	MaxLine  int
+	Colnames []string
 }
 
 // default value of Scanner
@@ -23,9 +23,9 @@ const (
 // Input - input table file object(io.Reader)
 func Input(r io.Reader) *Scanner {
 	return &Scanner{
-		bufio:   *bufio.NewScanner(r),
-		spliter: spliter,
-		maxLine: maxLine,
+		Bufio:   *bufio.NewScanner(r),
+		Spliter: spliter,
+		MaxLine: maxLine,
 	}
 }
 
@@ -34,16 +34,16 @@ func (s *Scanner) Iter() <-chan []string {
 	chnl := make(chan []string)
 	countLine := 0
 	go func() {
-		for s.bufio.Scan() {
-			tmpLine := s.bufio.Text()
-			if (s.maxLine != 0) && (countLine > s.maxLine) {
+		for s.Bufio.Scan() {
+			tmpLine := s.Bufio.Text()
+			if (s.MaxLine != 0) && (countLine > s.MaxLine) {
 				break
 			} else if len(tmpLine) == 0 {
 				continue
 			} else if tmpLine[:1] == "#" {
-				s.colnames = strings.Split(tmpLine[1:], s.spliter)
+				s.Colnames = strings.Split(tmpLine[1:], s.Spliter)
 			} else {
-				chnl <- strings.Split(s.bufio.Text(), s.spliter)
+				chnl <- strings.Split(s.Bufio.Text(), s.Spliter)
 			}
 			countLine++
 		}
