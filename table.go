@@ -10,14 +10,12 @@ import (
 type Scanner struct {
 	Bufio    bufio.Scanner
 	Spliter  string
-	MaxLine  int
 	Colnames []string
 }
 
 // default value of Scanner
 const (
 	spliter = "\t"
-	maxLine = 0
 )
 
 // Input - input table file object(io.Reader)
@@ -25,7 +23,6 @@ func Input(r io.Reader) *Scanner {
 	return &Scanner{
 		Bufio:   *bufio.NewScanner(r),
 		Spliter: spliter,
-		MaxLine: maxLine,
 	}
 }
 
@@ -36,9 +33,7 @@ func (s *Scanner) Iter() <-chan []string {
 	go func() {
 		for s.Bufio.Scan() {
 			tmpLine := s.Bufio.Text()
-			if (s.MaxLine != 0) && (countLine > s.MaxLine) {
-				break
-			} else if len(tmpLine) == 0 {
+			if len(tmpLine) == 0 {
 				continue
 			} else if tmpLine[:1] == "#" {
 				s.Colnames = strings.Split(tmpLine[1:], s.Spliter)
@@ -50,4 +45,13 @@ func (s *Scanner) Iter() <-chan []string {
 		close(chnl)
 	}()
 	return chnl
+}
+
+// GetColnames - only get the colnames
+func (s *Scanner) GetColnames() []string {
+	<-s.Iter()
+	if s.Colnames == nil {
+		return []string{}
+	}
+	return s.Colnames
 }

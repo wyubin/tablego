@@ -23,6 +23,16 @@ func TestTsvParse(t *testing.T) {
 	}
 }
 
+func TestGetColnames(t *testing.T) {
+	fTsv := bytes.NewBufferString("#col0\tcol1\tcol2\n#1col0\t1col1\t1col2\n0,0\t0,1\t0,2\n1,0\t1,1\t1,2\n")
+	tabO := Input(fTsv)
+	colnames := tabO.GetColnames()
+	fmt.Println(colnames)
+	if len(colnames) == 0 {
+		t.Error("Should have colnames!")
+	}
+}
+
 func BenchmarkTsvParse(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		fTsv := bytes.NewBufferString("0,0\t0,1\t0,2\n1,0\t1,1\t1,2\n")
